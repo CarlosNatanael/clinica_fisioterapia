@@ -18,12 +18,21 @@
             <tbody>
                 {% for agendamento in agendamentos %}
                 <tr>
-                    <td>{{ agendamento['paciente_nome'] }}</td>
+                    <td>
+                        <a href="{{ url_for('ver_paciente', id=agendamento['paciente_id']) }}">{{ agendamento['paciente_nome'] }}</a>
+                    </td>
                     <td>{{ agendamento['data_hora_formatada'] }}</td>
-                    <td><span class="status-badge">{{ agendamento['status'] }}</span></td>
+                    <td>
+                        <span class="status-badge status-{{ agendamento['status'] | lower }}">{{ agendamento['status'] }}</span>
+                    </td>
                     <td class="actions">
-                        <form action="{{ url_for('cancelar_agendamento', id=agendamento['id']) }}" method="post" onsubmit="return confirm('Tem certeza que deseja cancelar este agendamento?');">
-                            <button type="submit" class="btn-action btn-delete">Cancelar</button>
+                        <form class="status-form" action="{{ url_for('atualizar_status_agendamento', id=agendamento['id']) }}" method="post">
+                            <select name="status">
+                                <option value="Marcado" {% if agendamento['status'] == 'Marcado' %}selected{% endif %}>Marcado</option>
+                                <option value="Realizado" {% if agendamento['status'] == 'Realizado' %}selected{% endif %}>Realizado</option>
+                                <option value="Cancelado" {% if agendamento['status'] == 'Cancelado' %}selected{% endif %}>Cancelado</option>
+                            </select>
+                            <button type="submit" class="btn-action btn-update">Atualizar</button>
                         </form>
                     </td>
                 </tr>

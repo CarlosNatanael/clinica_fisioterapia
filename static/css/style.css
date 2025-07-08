@@ -508,3 +508,114 @@ input[type="datetime-local"] {
 .footer-link:hover {
     text-decoration: underline;
 }
+
+/* --- Estilos para Status de Agendamento --- */
+.status-badge {
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: capitalize; /* Deixa a primeira letra maiúscula */
+}
+
+/* Cores diferentes para cada status */
+.status-badge.status-marcado { background-color: #00a896; }
+.status-badge.status-realizado { background-color: #2a9d8f; }
+.status-badge.status-cancelado { background-color: #e63946; }
+
+/* Estilo para o formulário de atualização na tabela */
+.status-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.status-form select {
+    padding: 6px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.btn-update {
+    background-color: #005f73;
+    font-size: 0.9rem;
+}
+
+.btn-update:hover {
+    background-color: #003440;
+}
+
+/* --- ESTILOS DE RESPONSIVIDADE PARA MOBILE --- */
+
+/* Aplica estes estilos quando a tela tem 768px de largura ou menos */
+@media (max-width: 768px) {
+
+    /* Reduz o espaçamento geral do corpo da página */
+    body {
+        padding: 10px;
+    }
+
+    /* Ajusta os contêineres para ter menos espaçamento lateral */
+    .container, .container-large {
+        padding: 20px;
+    }
+
+    /* Ajusta a barra de navegação para empilhar os itens */
+    .navbar-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* Aumenta o espaçamento do topo para o conteúdo principal
+       devido à navbar maior */
+    .main-content {
+        padding-top: 150px;
+    }
+
+    /* Ajusta o painel do dashboard para empilhar os cards */
+    .dashboard-menu {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .menu-card-static,
+    .menu-card-dynamic {
+        width: 95%; /* Faz os cards ocuparem quase toda a largura */
+    }
+
+    /* Na tabela de agendamentos e pacientes, os botões de ação
+       podem ficar um embaixo do outro se não houver espaço */
+    td.actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .status-form {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Ajusta o rodapé do formulário da tabela */
+    .actions-footer {
+        text-align: center;
+    }
+
+    .btn-voltar {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Reduz um pouco o tamanho das fontes principais */
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+    }
+}

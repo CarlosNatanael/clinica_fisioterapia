@@ -1,8 +1,16 @@
-import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, g
 from datetime import datetime, date
+import sqlite3
+import sys
+import os
 
-app = Flask(__name__)
+if getattr(sys, 'frozen', False):
+    template_folder = os.path.join(sys._MEIPASS, 'templates')
+    static_folder = os.path.join(sys._MEIPASS, 'static')
+    app = Flask(__name__, template_folder=template_folder, static_folder=static_folder)
+else:
+    app = Flask(__name__)
+
 DATABASE = 'clinica.db'
 
 # --- Conexão com o Banco de Dados (sem alterações) ---
@@ -143,9 +151,13 @@ def adicionar_sessao(id):
 def ver_agendamentos():
     """Busca e exibe todos os agendamentos, ordenados por data."""
     db = get_db()
-    # Usamos um JOIN para buscar o nome do paciente junto com os dados do agendamento
     query = """
-        SELECT agendamentos.id, agendamentos.data_hora, agendamentos.status, pacientes.nome as paciente_nome
+        SELECT 
+            agendamentos.id, 
+            agendamentos.data_hora, 
+            agendamentos.status, 
+            pacientes.id as paciente_id, 
+            pacientes.nome as paciente_nome
         FROM agendamentos
         JOIN pacientes ON agendamentos.paciente_id = pacientes.id
         ORDER BY agendamentos.data_hora
@@ -184,11 +196,12 @@ def agendar_consulta():
     return render_template('agendar.html', pacientes=pacientes)
 
 
-@app.route('/agendamento/cancelar/<int:id>', methods=['POST'])
-def cancelar_agendamento(id):
-    """Cancela (deleta) um agendamento."""
+@app.route('/agendamento/atualizar_status/<int:id>', methods=['POST'])
+def atualizar_status_agendamento(id):
+    """NOVA ROTA: Atualiza o status de um agendamento (Ex: Realizado, Cancelado)."""
+    novo_status = request.form['status']
     db = get_db()
-    db.execute('DELETE FROM agendamentos WHERE id = ?', (id,))
+    db.execute('UPDATE agendamentos SET status = ? WHERE id = ?', (novo_status, id))
     db.commit()
     return redirect(url_for('ver_agendamentos'))
 
