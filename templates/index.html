@@ -7,7 +7,7 @@
     <h1>Cadastro de Paciente</h1>
     <p>Preencha os dados abaixo para registrar um novo paciente.</p>
     
-    <form action="/cadastrar" method="post">
+    <form action="{{ url_for('cadastrar_paciente') }}" method="post">
         <div class="form-group">
             <label for="nome">Nome Completo</label>
             <input type="text" id="nome" name="nome" placeholder="Digite o nome completo" required>

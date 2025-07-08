@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Painel de Controle{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h1>Painel de Controle</h1>
+    <p>Bem-vindo(a) ao sistema de gerenciamento da clínica.</p>
+    <div class="dashboard-menu">
+        <a href="{{ url_for('cadastrar_paciente') }}" class="menu-card">
+            <div class="card-icon">➕</div>
+            <div class="card-title">Cadastrar Novo Paciente</div>
+            <div class="card-description">Adicione um novo paciente ao sistema.</div>
+        </a>
+        <a href="{{ url_for('listar_pacientes') }}" class="menu-card">
+            <div class="card-icon">👥</div>
+            <div class="card-title">Ver Pacientes Cadastrados</div>
+            <div class="card-description">Consulte, edite e veja o histórico dos pacientes.</div>
+        </a>
+        <a href="{{ url_for('ver_agendamentos') }}" class="menu-card">
+            <div class="card-icon">🗓️</div>
+            <div class="card-title">Ver Agendamentos</div>
+            <div class="card-description">Consulte a agenda de atendimentos.</div>
+        </a>
+    </div>
+</div>
+{% endblock %}

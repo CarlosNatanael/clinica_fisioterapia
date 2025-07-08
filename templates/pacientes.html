@@ -19,7 +19,7 @@
             <tbody>
                 {% for paciente in pacientes %}
                 <tr>
-                    <td>{{ paciente['nome'] }}</td>
+                    <td><a href="{{ url_for('ver_paciente', id=paciente['id']) }}">{{ paciente['nome'] }}</a></td>
                     <td>{{ paciente['email'] }}</td>
                     <td>{{ paciente['telefone'] }}</td>
                     <td>{{ paciente['plano_saude'] or 'Não informado' }}</td>

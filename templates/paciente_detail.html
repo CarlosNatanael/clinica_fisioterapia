@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Detalhes de {{ paciente['nome'] }}{% endblock %}
+
+{% block content %}
+<div class="container-large">
+    <h1>{{ paciente['nome'] }}</h1>
+    
+    <div class="patient-details">
+        <p><strong>Email:</strong> {{ paciente['email'] }}</p>
+        <p><strong>Telefone:</strong> {{ paciente['telefone'] }}</p>
+        <p><strong>Data de Nascimento:</strong> {{ paciente['data_nascimento'] }}</p>
+        <p><strong>Endereço:</strong> {{ paciente['endereco'] or 'Não informado' }}</p>
+        <p><strong>Plano de Saúde:</strong> {{ paciente['plano_saude'] or 'Não informado' }}</p>
+    </div>
+
+    <hr>
+
+    <div class="session-history">
+        <h2>Histórico de Sessões</h2>
+
+        <div class="card-form">
+            <h3>Adicionar Nova Sessão</h3>
+            <form action="{{ url_for('adicionar_sessao', id=paciente['id']) }}" method="post">
+                <div class="form-group">
+                    <label for="data_sessao">Data da Sessão</label>
+                    <input type="date" id="data_sessao" name="data_sessao" required>
+                </div>
+                <div class="form-group">
+                    <label for="anotacoes">Anotações da Sessão (O que foi feito?)</label>
+                    <textarea id="anotacoes" name="anotacoes" rows="4" required placeholder="Descreva os procedimentos, evolução, observações..."></textarea>
+                </div>
+                <button type="submit">Salvar Sessão</button>
+            </form>
+        </div>
+
+        <div class="session-list">
+            {% for sessao in sessoes %}
+                <div class="session-card">
+                    <div class="session-header">
+                        <strong>Data:</strong> {{ sessao['data_sessao'] }}
+                    </div>
+                    <div class="session-body">
+                        {{ sessao['anotacoes'] }}
+                    </div>
+                </div>
+            {% else %}
+                <p>Nenhuma sessão registrada para este paciente.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
