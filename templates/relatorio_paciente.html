@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório de {{ paciente['nome'] }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body { background-color: white; padding: 20px; }
+        .report-container { max-width: 800px; margin: auto; }
+        @media print {
+            body { 
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <div class="no-print" style="text-align: right; margin-bottom: 20px;">
+            <button onclick="window.print()" class="btn-action-dash">Imprimir / Salvar PDF</button>
+        </div>
+        <h1>Relatório Final de Tratamento</h1>
+        <hr>
+        <h3>Dados do Paciente</h3>
+        <p><strong>Nome:</strong> {{ paciente['nome'] }}</p>
+        <p><strong>Email:</strong> {{ paciente['email'] }}</p>
+        <p><strong>Telefone:</strong> {{ paciente['telefone'] }}</p>
+        <p><strong>Plano Contratado:</strong> {{ paciente['plano_nome'] }} ({{ paciente['valor_total']|brl }})</p>
+        <hr>
+        <h3>Histórico de Sessões ({{ sessoes|length }} de {{ paciente['numero_sessoes'] }} realizadas)</h3>
+        <table>
+            <thead>
+                <tr><th>Data</th><th>Anotações</th><th>Valor Pago</th></tr>
+            </thead>
+            <tbody>
+                {% for sessao in sessoes %}
+                <tr>
+                    <td>{{ sessao['data_sessao'] }}</td>
+                    <td>{{ sessao['anotacoes'] }}</td>
+                    <td>
+                        {% if sessao.status_pagamento != 'Pendente' %}
+                            {{ sessao.valor|brl }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <hr>
+        <h3>Resumo Financeiro</h3>
+        <p><strong>Valor Total do Plano:</strong> {{ paciente['valor_total']|brl }}</p>
+        <p><strong>Valor Total Pago:</strong> {{ total_pago|brl }}</p>
+        <p style="font-weight: bold;"><strong>Saldo:</strong> 
+            {% if (paciente.valor_total - total_pago) > 0 %}
+                Pendente de {{ (paciente.valor_total - total_pago)|brl }}
+            {% else %}
+                Quitado
+            {% endif %}
+        </p>
+    </div>
+</body>
+</html>

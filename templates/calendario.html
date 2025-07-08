@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Calendário de Agendamentos{% endblock %}
+
+{% block content %}
+<div class="container-large">
+    <h1>Calendário de Agendamentos</h1>
+    <p>Visualize os agendamentos em uma interface de calendário. Clique em um evento para ver os detalhes do paciente.</p>
+
+    <div id='calendar'></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const calendarEl = document.getElementById('calendar');
+
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            // --- CONFIGURAÇÕES GERAIS ---
+            initialView: 'dayGridMonth', // Mudei a visão inicial para semana, que é melhor para arrastar
+            locale: 'pt-br',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+            },
+            buttonText: {
+                today: 'Hoje',
+                month: 'Mês',
+                week: 'Semana',
+                day: 'Dia',
+                list: 'Lista'
+            },
+            height: 'auto',
+            allDaySlot: false, // Remove a linha "o dia todo"
+
+            // --- CONFIGURAÇÕES DE EVENTOS ---
+            events: '/api/agendamentos',
+
+            // --- NOVAS CONFIGURAÇÕES DE INTERATIVIDADE ---
+
+            // 1. Habilita a edição (arrastar, redimensionar)
+            editable: true, 
+
+            // 2. Função que é chamada DEPOIS que um evento é arrastado e solto
+            eventDrop: function(info) {
+                // Pega os dados essenciais do evento que foi movido
+                const eventoMovido = {
+                    id: info.event.id,
+                    start: info.event.start.toISOString() // Converte a data para o formato padrão
+                };
+
+                // Mostra ao usuário que algo está acontecendo
+                console.log("Movendo evento:", eventoMovido);
+                
+                // Envia os dados para a nossa nova API usando fetch
+                fetch('/api/agendamento/mover', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(eventoMovido),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'sucesso') {
+                        console.log('Sucesso:', data.mensagem);
+                        // Opcional: mostrar uma notificação de sucesso
+                    } else {
+                        console.error('Erro:', data.mensagem);
+                        // Se der erro, reverte a mudança no calendário para a posição original
+                        info.revert(); 
+                        alert("Não foi possível salvar a alteração.");
+                    }
+                })
+                .catch((error) => {
+                    console.error('Erro de rede:', error);
+                    info.revert();
+                    alert("Erro de conexão ao salvar a alteração.");
+                });
+            }
+        });
+
+        calendar.render();
+    });
+</script>
+{% endblock %}

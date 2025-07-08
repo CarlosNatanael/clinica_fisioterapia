@@ -1,0 +1,11 @@
+Página de calendário
+--> Programar os dias de cada paciente = Fullcalender
+--> Adicionar o nome do paciente e ligar direto com os dados = check/cel
+Página com os pacientes individuais
+--> Dados dos pacientes
+--> Qual plano de pagamentos ele escolheu
+-> Valores a pagar
+Poder adicionar se o cliente pagou antecipado, se pagou na hora ou se não pagou, para atualizar a página de ganhos
+--> Saber quantos dias de tratamento para controlar os planos = desev
+--> Poder tirar o relatório final após encerramento com o paciente = execel/desev
+Página com os ganhos totais

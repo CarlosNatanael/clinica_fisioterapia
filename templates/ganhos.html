@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Relatório Financeiro{% endblock %}
+{% block content %}
+<div class="container-large">
+    <h1>Relatório Financeiro Geral</h1>
+    <div class="dashboard-menu">
+        <div class="menu-card-static">
+            <div class="card-icon">💰</div>
+            <div class="card-title">{{ ganho_total|brl }}</div>
+            <div class="card-description">Faturamento Total</div>
+        </div>
+        <div class="menu-card-static">
+            <div class="card-icon">💵</div>
+            <div class="card-title">{{ ganho_mes|brl }}</div>
+            <div class="card-description">Faturamento no Mês</div>
+        </div>
+        <div class="menu-card-static">
+            <div class="card-icon">⏳</div>
+            <div class="card-title">{{ total_pendente|brl }}</div>
+            <div class="card-description">Total a Receber</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

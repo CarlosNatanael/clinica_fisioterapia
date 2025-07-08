@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>{% block title %}Clínica Fisioterapia Vitalis{% endblock %}</title>
+    <title>{% block title %}Clínica Fisioterapia{% endblock %}</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,11 +13,27 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+    <!-- Overlay que escurece a página quando o menu está aberto -->
+    <div class="overlay" id="overlay"></div>
 
     <nav class="navbar">
         <div class="navbar-container">
-            <a href="{{ url_for('home') }}" class="navbar-brand">Clínica Fisioterapia</a>
-        </div>
+            <a href="{{ url_for('home') }}" class="navbar-brand">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo da Clínica" class="logo-img">
+            </a>
+
+            <!-- Botão Hambúrguer (visível apenas em telas pequenas) -->
+            <button class="hamburger-btn" id="hamburger-btn">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <a href="{{ url_for('listar_pacientes') }}" class="nav-link">Pacientes</a>
+                <a href="{{ url_for('ver_agendamentos') }}" class="nav-link">Agendamentos</a>
+                <a href="{{ url_for('calendario') }}" class="nav-link">Calendário</a>
+                <a href="{{ url_for('ganhos') }}" class="nav-link">Financeiro</a>
+            </div>
     </nav>
 
     <main class="main-content">
@@ -26,11 +42,32 @@
 
     <footer class="footer">
         <p>
-            &copy; 2025 - Clínica Fisioterapia. Todos os direitos reservados.
+            &copy; {{ current_year }} - Todos os direitos reservados.
             <br>
             <a href="{{ url_for('suporte') }}" class="footer-link">Suporte Técnico do Sistema</a>
         </p>
     </footer>
+
+    <!-- Bloco de Scripts -->
+    {% block scripts %}{% endblock %}
+
+    <!-- JavaScript para o Menu Hambúrguer -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const navLinks = document.getElementById('nav-links');
+            const overlay = document.getElementById('overlay');
+
+            function toggleMenu() {
+                hamburgerBtn.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                overlay.classList.toggle('active');
+            }
+
+            hamburgerBtn.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', toggleMenu);
+        });
+    </script>
 
 </body>
 </html>
