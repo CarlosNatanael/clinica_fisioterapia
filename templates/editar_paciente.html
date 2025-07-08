@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Paciente{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Editar Cadastro de: {{ paciente['nome'] }}</h1>
+    
+    <form action="{{ url_for('editar_paciente', id=paciente['id']) }}" method="post">
+        <div class="form-group">
+            <label for="nome">Nome Completo</label>
+            <input type="text" id="nome" name="nome" value="{{ paciente['nome'] }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="data_nascimento">Data de Nascimento</label>
+            <input type="date" id="data_nascimento" name="data_nascimento" value="{{ paciente['data_nascimento'] }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" value="{{ paciente['email'] }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="telefone">Telefone</label>
+            <input type="tel" id="telefone" name="telefone" value="{{ paciente['telefone'] }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="endereco">Endereço Completo</label>
+            <input type="text" id="endereco" name="endereco" placeholder="Rua, Número, Bairro, Cidade - Estado" value="{{ paciente['endereco'] or '' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="plano_saude">Plano de Saúde</label>
+            <input type="text" id="plano_saude" name="plano_saude" placeholder="Nome do plano de saúde" value="{{ paciente['plano_saude'] or '' }}">
+        </div>
+        
+        <button type="submit">Atualizar Cadastro</button>
+    </form>
+</div>
+{% endblock %}

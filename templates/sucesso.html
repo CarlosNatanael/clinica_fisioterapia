@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Cadastro Realizado com Sucesso{% endblock %}
+
+{% block content %}
+<div class="container sucesso-container">
+    <h1>Cadastro Realizado com Sucesso!</h1>
+    <p>O paciente foi registrado em nosso sistema.</p>
+    <a href="{{ url_for('index') }}" class="btn-voltar">Cadastrar Novo Paciente</a>
+</div>
+{% endblock %}

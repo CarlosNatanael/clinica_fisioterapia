@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Pacientes{% endblock %}
+
+{% block content %}
+<div class="container-large">
+    <h1>Pacientes Cadastrados</h1>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>Plano de Saúde</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for paciente in pacientes %}
+                <tr>
+                    <td>{{ paciente['nome'] }}</td>
+                    <td>{{ paciente['email'] }}</td>
+                    <td>{{ paciente['telefone'] }}</td>
+                    <td>{{ paciente['plano_saude'] or 'Não informado' }}</td>
+                    <td class="actions">
+                        <a href="{{ url_for('editar_paciente', id=paciente['id']) }}" class="btn-action btn-edit">Editar</a>
+                        <form action="{{ url_for('deletar_paciente', id=paciente['id']) }}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir este paciente?');">
+                            <button type="submit" class="btn-action btn-delete">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center;">Nenhum paciente cadastrado ainda.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="actions-footer">
+        <a href="{{ url_for('index') }}" class="btn-voltar">Cadastrar Novo Paciente</a>
+    </div>
+</div>
+{% endblock %}
