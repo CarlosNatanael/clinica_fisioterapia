@@ -3,9 +3,40 @@
 {% block title %}Agendamentos{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>🗓️ Agendamentos</h1>
-    <p>Esta funcionalidade ainda está em desenvolvimento.</p>
-    <a href="{{ url_for('home') }}" class="btn-voltar">Voltar ao Painel</a>
+<div class="container-large">
+    <h1>🗓️ Próximos Agendamentos</h1>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Paciente</th>
+                    <th>Data e Hora</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for agendamento in agendamentos %}
+                <tr>
+                    <td>{{ agendamento['paciente_nome'] }}</td>
+                    <td>{{ agendamento['data_hora_formatada'] }}</td>
+                    <td><span class="status-badge">{{ agendamento['status'] }}</span></td>
+                    <td class="actions">
+                        <form action="{{ url_for('cancelar_agendamento', id=agendamento['id']) }}" method="post" onsubmit="return confirm('Tem certeza que deseja cancelar este agendamento?');">
+                            <button type="submit" class="btn-action btn-delete">Cancelar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center;">Nenhum agendamento encontrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="actions-footer">
+        <a href="{{ url_for('agendar_consulta') }}" class="btn-voltar">Nova Consulta</a>
+    </div>
 </div>
 {% endblock %}

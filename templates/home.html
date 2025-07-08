@@ -7,21 +7,36 @@
     <h1>Painel de Controle</h1>
     <p>Bem-vindo(a) ao sistema de gerenciamento da clínica.</p>
     <div class="dashboard-menu">
-        <a href="{{ url_for('cadastrar_paciente') }}" class="menu-card">
-            <div class="card-icon">➕</div>
-            <div class="card-title">Cadastrar Novo Paciente</div>
-            <div class="card-description">Adicione um novo paciente ao sistema.</div>
-        </a>
-        <a href="{{ url_for('listar_pacientes') }}" class="menu-card">
+        <div class="menu-card-static">
             <div class="card-icon">👥</div>
-            <div class="card-title">Ver Pacientes Cadastrados</div>
-            <div class="card-description">Consulte, edite e veja o histórico dos pacientes.</div>
-        </a>
-        <a href="{{ url_for('ver_agendamentos') }}" class="menu-card">
-            <div class="card-icon">🗓️</div>
-            <div class="card-title">Ver Agendamentos</div>
-            <div class="card-description">Consulte a agenda de atendimentos.</div>
-        </a>
+            <div class="card-title">{{ total_pacientes }}</div>
+            <div class="card-description">Pacientes Totais</div>
+        </div>
+        <div class="menu-card-static">
+            <div class="card-icon">📈</div>
+            <div class="card-title">{{ novos_pacientes_mes }}</div>
+            <div class="card-description">Novos Pacientes no Mês</div>
+        </div>
+
+        <div class="menu-card-dynamic">
+            <h3 class="dynamic-card-title">🗓️ Próximos Agendamentos</h3>
+            <ul class="appointment-list">
+                {% for agendamento in proximos_agendamentos %}
+                    <li>
+                        <strong>{{ agendamento.data_hora_formatada }}</strong><br>
+                        {{ agendamento.paciente_nome }}
+                    </li>
+                {% else %}
+                    <li>Nenhum agendamento próximo.</li>
+                {% endfor %}
+            </ul>
+             <a href="{{ url_for('ver_agendamentos') }}" class="card-link">Ver todos</a>
+        </div>
+    </div>
+    <div class="dashboard-actions">
+        <a href="{{ url_for('cadastrar_paciente') }}" class="btn-action-dash">➕ Cadastrar Paciente</a>
+        <a href="{{ url_for('agendar_consulta') }}" class="btn-action-dash">🗓️ Nova Consulta</a>
+        <a href="{{ url_for('listar_pacientes') }}" class="btn-action-dash">Ver Pacientes</a>
     </div>
 </div>
 {% endblock %}

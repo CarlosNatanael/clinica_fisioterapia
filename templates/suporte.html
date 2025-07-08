@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Suporte do Sistema{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="support-card">
+        <h1>Suporte do Sistema</h1>
+        <p>Este sistema foi desenvolvido por:</p>
+        
+        <div class="developer-info">
+            <h2>Carlos Natanael</h2>
+            <p>Desenvolvedor de Software</p>
+        </div>
+
+        <hr>
+
+        <h3>Contato para Suporte Técnico</h3>
+        <p>Encontrou algum problema ou tem sugestões de melhoria?</p>
+        <ul class="contact-list">
+            <li><strong>E-mail:</strong> <a href="mailto:seu.email@exemplo.com">suportetecnico1596@gmail.com</a></li>
+            <li><strong>WhatsApp:</strong> <a href="https://wa.me/5518981396032" target="_blank">+55 (18) 98139-6032</a></li>
+            </ul>
+        
+        <div class="actions-footer" style="text-align: center; margin-top: 30px;">
+             <a href="{{ url_for('home') }}" class="btn-voltar">Voltar ao Painel</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

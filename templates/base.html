@@ -17,7 +17,6 @@
     <nav class="navbar">
         <div class="navbar-container">
             <a href="{{ url_for('home') }}" class="navbar-brand">Clínica Fisioterapia</a>
-            <a href="{{ url_for('listar_pacientes') }}" class="nav-link">Ver Pacientes</a>
         </div>
     </nav>
 
@@ -26,7 +25,11 @@
     </main>
 
     <footer class="footer">
-        <p>&copy; 2025 - Clínica Fisioterapia Vitalis. Todos os direitos reservados.</p>
+        <p>
+            &copy; 2025 - Clínica Fisioterapia Vitalis. Todos os direitos reservados.
+            <br>
+            <a href="{{ url_for('suporte') }}" class="footer-link">Suporte Técnico do Sistema</a>
+        </p>
     </footer>
 
 </body>

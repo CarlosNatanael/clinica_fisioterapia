@@ -36,12 +36,22 @@
 
         <div class="session-list">
             {% for sessao in sessoes %}
-                <div class="session-card">
+                <div class="session-card status-{{ sessao['status_pagamento'] | lower }}">
                     <div class="session-header">
-                        <strong>Data:</strong> {{ sessao['data_sessao'] }}
+                        <span><strong>Data:</strong> {{ sessao['data_sessao'] }}</span>
+                        <span class="payment-status status-{{ sessao['status_pagamento'] | lower }}">
+                            {{ sessao['status_pagamento'] }}
+                        </span>
                     </div>
                     <div class="session-body">
                         {{ sessao['anotacoes'] }}
+                    </div>
+                    <div class="session-footer">
+                        {% if sessao['status_pagamento'] == 'Pendente' %}
+                            <form action="{{ url_for('marcar_sessao_paga', id=sessao['id']) }}" method="post">
+                                <button type="submit" class="btn-pagar">Marcar como Pago</button>
+                            </form>
+                        {% endif %}
                     </div>
                 </div>
             {% else %}
