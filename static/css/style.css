@@ -626,3 +626,15 @@ td.actions {
     padding: 15px;
     color: #5c3d3d;
 }
+
+/* =================================== */
+/* 12. ESTILOS DE AÇÕES DE PÁGINA      */
+/* =================================== */
+
+.page-actions {
+    display: flex;
+    justify-content: flex-start; /* Alinha os botões à esquerda */
+    gap: 15px; /* Espaço entre os botões */
+    margin-top: 10px;
+    margin-bottom: 20px;
+}

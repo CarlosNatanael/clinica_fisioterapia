@@ -5,11 +5,12 @@
 {% block content %}
 <div class="container-large">
     <h1>🗓️ Próximos Agendamentos</h1>
-        <div class="actions-footer">
-        <a href="{{ url_for('agendar_consulta') }}" class="btn-voltar">Nova Consulta</a>
-        <br>
-        <a href="{{ url_for('agendamento_recorrente') }}" class="btn-voltar" style="background-color: #c59285;">Agendamento Recorrente</a>
+
+    <div class="page-actions">
+        <a href="{{ url_for('agendar_consulta') }}" class="btn-action-dash">Nova Consulta</a>
+        <a href="{{ url_for('agendamento_recorrente') }}" class="btn-action-dash" style="background-color: #c59285;">Agendamento Recorrente</a>
     </div>
+    
     <div class="table-wrapper">
         <table>
             <thead>
