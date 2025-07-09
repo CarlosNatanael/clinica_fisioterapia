@@ -288,6 +288,8 @@ def deletar_sessao(id):
 @app.route('/ganhos')
 def ganhos():
     db = get_db()
+    
+    # --- LÓGICA FINANCEIRA ---
     ganho_sessoes = db.execute("SELECT SUM(valor) FROM sessoes WHERE status_pagamento LIKE 'Pago%'").fetchone()[0] or 0.0
     ganho_avulsos = db.execute("SELECT SUM(valor) FROM pagamentos").fetchone()[0] or 0.0
     ganho_total = ganho_sessoes + ganho_avulsos
@@ -299,8 +301,27 @@ def ganhos():
 
     total_planos = db.execute("SELECT SUM(pl.valor_total) FROM pacientes p JOIN planos pl ON p.plano_id = pl.id").fetchone()[0] or 0.0
     total_pendente = total_planos - ganho_total
+
+    pagamentos_sessoes = db.execute("""
+        SELECT s.data_sessao as data, p.nome as paciente_nome, s.valor, 'Pagamento em Sessão' as tipo
+        FROM sessoes s JOIN pacientes p ON s.paciente_id = p.id
+        WHERE s.status_pagamento LIKE 'Pago%' AND s.valor IS NOT NULL
+    """).fetchall()
+
+    pagamentos_avulsos_hist = db.execute("""
+        SELECT pg.data_pagamento as data, p.nome as paciente_nome, pg.valor, pg.anotacoes as tipo
+        FROM pagamentos pg JOIN pacientes p ON pg.paciente_id = p.id
+    """).fetchall()
+
+    historico_pagamentos = [dict(p) for p in pagamentos_sessoes] + [dict(p) for p in pagamentos_avulsos_hist]
     
-    return render_template('ganhos.html', ganho_total=ganho_total, ganho_mes=ganho_mes, total_pendente=total_pendente)
+    historico_pagamentos.sort(key=lambda x: x['data'], reverse=True)
+
+    return render_template('ganhos.html', 
+                           ganho_total=ganho_total, 
+                           ganho_mes=ganho_mes, 
+                           total_pendente=total_pendente,
+                           historico=historico_pagamentos)
 
 # --- ROTAS DE AGENDAMENTO E CALENDÁRIO ---
 @app.route('/agendamentos')

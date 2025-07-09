@@ -20,5 +20,34 @@
             <div class="card-description">Total a Receber</div>
         </div>
     </div>
+    <hr>
+    
+    <h2>Histórico de Entradas</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Paciente</th>
+                    <th>Descrição / Origem</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in historico %}
+                <tr>
+                    <td>{{ item.data | format_datetime }}</td>
+                    <td>{{ item.paciente_nome }}</td>
+                    <td>{{ item.tipo }}</td>
+                    <td>{{ item.valor | brl }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center;">Nenhum pagamento registrado ainda.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}
