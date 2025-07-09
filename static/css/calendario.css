@@ -1,0 +1,146 @@
+/* =================================== */
+/* 1. ESTILOS GERAIS E NAVBAR          */
+/* =================================== */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #F0ECE5;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #D1A79D;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-img {
+    height: 50px;
+    width: auto;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* =================================== */
+/* 2. LAYOUT DO CALENDÁRIO             */
+/* =================================== */
+
+#calendar-container {
+    /* Ocupa a tela inteira, mas com um padding-top para não ficar atrás da navbar */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+    padding-top: 90px; /* Altura da navbar (70px) + um respiro (20px) */
+    box-sizing: border-box;
+}
+
+#calendar {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.07);
+}
+
+/* Cores dos botões para combinar com o tema */
+.fc .fc-button-primary {
+    background-color: #844C4C;
+    border-color: #844C4C;
+}
+
+.fc .fc-button-primary:hover {
+    background-color: #6a3d3d;
+    border-color: #6a3d3d;
+}
+
+/* =================================== */
+/* 3. MENU HAMBÚRGUER E RESPONSIVIDADE */
+/* =================================== */
+
+.hamburger-btn { display: none; }
+
+/* Para telas pequenas */
+@media (max-width: 800px) {
+    .hamburger-btn {
+        display: block;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        z-index: 1101;
+    }
+    .hamburger-line {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        margin: 5px auto;
+        transition: all 0.3s ease-in-out;
+    }
+    .hamburger-btn.active .hamburger-line:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger-btn.active .hamburger-line:nth-child(2) { opacity: 0; }
+    .hamburger-btn.active .hamburger-line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 280px;
+        height: 100%;
+        background-color: #F0ECE5;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 60px 20px;
+        gap: 15px;
+        transform: translateX(-100%);
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: 1100;
+        box-shadow: 5px 0px 15px rgba(0,0,0,0.1);
+    }
+    .nav-links.active {
+        transform: translateX(0);
+    }
+    .nav-link {
+        width: 100%;
+        color: #844C4C;
+    }
+    .nav-link:hover {
+        background-color: #e0d9d4;
+    }
+}

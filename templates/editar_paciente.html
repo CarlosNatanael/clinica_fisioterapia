@@ -33,8 +33,15 @@
         </div>
 
         <div class="form-group">
-            <label for="plano_saude">Plano de Saúde</label>
-            <input type="text" id="plano_saude" name="plano_saude" placeholder="Nome do plano de saúde" value="{{ paciente['plano_saude'] or '' }}">
+            <label for="plano_id">Plano de Tratamento</label>
+            <select id="plano_id" name="plano_id">
+                <option value="">-- Nenhum / Avulso --</option>
+                {% for plano in planos %}
+                    <option value="{{ plano.id }}" {% if plano.id == paciente.plano_id %}selected{% endif %}>
+                        {{ plano.nome }} ({{ plano.valor_total|brl }})
+                    </option>
+                {% endfor %}
+            </select>
         </div>
         
         <button type="submit">Atualizar Cadastro</button>

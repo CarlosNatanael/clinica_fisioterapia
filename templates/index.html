@@ -29,9 +29,15 @@
             <label for="endereco">Endereço Completo (Opcional)</label>
             <input type="text" id="endereco" name="endereco" placeholder="Rua, Número, Bairro, Cidade - Estado">
         </div>
+
         <div class="form-group">
-            <label for="plano_saude">Plano de Saúde (Opcional)</label>
-            <input type="text" id="plano_saude" name="plano_saude" placeholder="Nome do plano de saúde">
+            <label for="plano_id">Plano de Tratamento (Opcional)</label>
+            <select id="plano_id" name="plano_id">
+                <option value="">-- Nenhum / Avulso --</option>
+                {% for plano in planos %}
+                    <option value="{{ plano.id }}">{{ plano.nome }} ({{ plano.valor_total|brl }})</option>
+                {% endfor %}
+            </select>
         </div>
         
         <button type="submit">Cadastrar Paciente</button>

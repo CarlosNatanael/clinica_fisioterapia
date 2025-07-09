@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Detalhes de {{ paciente['nome'] }}{% endblock %}
+
 {% block content %}
 <div class="container-large">
     <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -10,12 +11,12 @@
     <div class="dashboard-menu">
         <div class="menu-card-static">
             <div class="card-icon">🎯</div>
-            <div class="card-title">{{ paciente['plano_nome'] }}</div>
+            <div class="card-title">{{ paciente['plano_nome'] or 'Nenhum' }}</div>
             <div class="card-description">Plano Contratado</div>
         </div>
         <div class="menu-card-static">
             <div class="card-icon">📊</div>
-            <div class="card-title">{{ sessoes|length }} de {{ paciente['numero_sessoes'] }}</div>
+            <div class="card-title">{{ sessoes|length }} de {{ paciente['numero_sessoes'] or 'N/A' }}</div>
             <div class="card-description">Sessões Realizadas</div>
         </div>
         <div class="menu-card-static">
@@ -25,56 +26,98 @@
         </div>
         <div class="menu-card-static {% if pendente > 0 %}status-pendente{% endif %}">
             <div class="card-icon">⏳</div>
-            <div class="card-title">{{ pendente|brl }}</div>
+            <div class="card-title">{{ pendente|brl if pendente > 0 else 'Quitado' }}</div>
             <div class="card-description">Saldo Pendente</div>
         </div>
     </div>
+
+    {% if pendente > 0 %}
+    <div class="payment-form-container">
+        <h3>Realizar Pagamento Avulso</h3>
+        <form action="{{ url_for('adicionar_pagamento_avulso', paciente_id=paciente.id) }}" method="post" class="payment-form">
+            <div class="form-group">
+                <label for="valor">Valor a Pagar</label>
+                <input type="number" step="0.01" name="valor" placeholder="Ex: 100.00" required>
+            </div>
+            <button type="submit" class="btn-action-dash">Adicionar Pagamento</button>
+        </form>
+    </div>
+    {% endif %}
     <hr>
+
     <div class="session-history">
-        <h2>Histórico de Sessões</h2>
-        <div class="card-form">
-            <h3>Adicionar Nova Sessão / Pagamento</h3>
-            <form action="{{ url_for('adicionar_sessao') }}" method="post">
-                <input type="hidden" name="paciente_id" value="{{ paciente.id }}">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="data_sessao">Data</label>
-                        <input type="date" id="data_sessao" name="data_sessao" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="valor">Valor Pago</label>
-                        <input type="number" step="0.01" id="valor" name="valor" placeholder="150.00">
-                    </div>
-                    <div class="form-group">
-                        <label for="status_pagamento">Status do Pagamento</label>
-                        <select id="status_pagamento" name="status_pagamento">
-                            <option value="Pendente">Pendente</option>
-                            <option value="Pago (Na Hora)">Pago (Na Hora)</option>
-                            <option value="Pago (Adiantado)">Pago (Adiantado)</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="anotacoes">Anotações da Sessão</label>
-                    <textarea id="anotacoes" name="anotacoes" rows="3" required></textarea>
-                </div>
-                <button type="submit">Salvar Sessão</button>
-            </form>
-        </div>
+        <h2>Histórico de Sessões Realizadas</h2>
         <div class="session-list">
             {% for sessao in sessoes %}
-            <div class="session-card">
-                <div class="session-footer" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="session-card" onclick="mostrarAnotacoes(this)" data-data-sessao="{{ sessao.data_sessao | format_datetime }}" data-anotacoes="{{ sessao.anotacoes }}">
+                <div class="session-header">
+                    <strong>Sessão de {{ sessao.data_sessao | format_datetime }}</strong>
+                    <small>Clique para ver as anotações</small>
+                </div>
+                <div class="session-footer">
                     <span class="payment-status status-{{ sessao.status_pagamento|lower|replace(' ', '-')|replace('(', '')|replace(')', '') }}">
                         {{ sessao.status_pagamento }} - {{ sessao.valor|brl if sessao.valor else 'R$ 0,00' }}
                     </span>
-                    <form action="{{ url_for('deletar_sessao', id=sessao.id) }}" method="post" onsubmit="return confirm('Excluir esta sessão? A ação não pode ser desfeita.');">
+                    <form action="{{ url_for('deletar_sessao', id=sessao.id) }}" method="post" onsubmit="return confirm('Excluir esta sessão? A ação não pode ser desfeita.'); event.stopPropagation();">
                         <button type="submit" class="btn-action btn-delete">Excluir</button>
                     </form>
                 </div>
             </div>
+            {% else %}
+             <p style="text-align: center;">Nenhuma sessão realizada ainda.</p>
             {% endfor %}
         </div>
     </div>
+
+    <div class="payment-history">
+        <h2>Histórico de Pagamentos Avulsos</h2>
+        <div class="session-list">
+            {% for pagamento in historico_pagamentos %}
+            <div class="session-card-static">
+                <span>🗓️ {{ pagamento.data_pagamento | format_datetime }}</span>
+                <strong>{{ pagamento.valor | brl }}</strong>
+                <span>{{ pagamento.anotacoes }}</span>
+            </div>
+            {% else %}
+            <p style="text-align: center;">Nenhum pagamento avulso realizado.</p>
+            {% endfor %}
+        </div>
+    </div>
+    <hr>
+
+    <div class="upcoming-appointments">
+        <h2>Próximos Agendamentos</h2>
+        {% if agendamentos %}
+            <div class="appointment-list">
+                {% for agendamento in agendamentos %}
+                <div class="appointment-card">
+                    <div class="appointment-info">
+                        <span class="appointment-icon">🗓️</span>
+                        <strong>{{ agendamento.data_hora | format_datetime }}</strong>
+                    </div>
+                    <div class="appointment-action">
+                        <form action="{{ url_for('finalizar_sessao', agendamento_id=agendamento.id) }}">
+                            <button class="btn-action btn-update">Finalizar Sessão</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p style="text-align: center;">Nenhum agendamento futuro encontrado.</p>
+        {% endif %}
+    </div>
+
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function mostrarAnotacoes(elemento) {
+        const dataSessao = elemento.getAttribute('data-data-sessao');
+        const anotacoes = elemento.getAttribute('data-anotacoes');
+        const mensagem = `Anotações da Sessão de ${dataSessao}:\n\n${anotacoes}`;
+        alert(mensagem);
+    }
+</script>
 {% endblock %}

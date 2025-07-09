@@ -19,7 +19,7 @@
     <nav class="navbar">
         <div class="navbar-container">
             <a href="{{ url_for('home') }}" class="navbar-brand">
-                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo da Clínica" class="logo-img">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo da Clínica" class="logo-img">
             </a>
 
             <!-- Botão Hambúrguer (visível apenas em telas pequenas) -->
@@ -32,7 +32,9 @@
                 <a href="{{ url_for('listar_pacientes') }}" class="nav-link">Pacientes</a>
                 <a href="{{ url_for('ver_agendamentos') }}" class="nav-link">Agendamentos</a>
                 <a href="{{ url_for('calendario') }}" class="nav-link">Calendário</a>
+                <a href="{{ url_for('ver_planos') }}" class="nav-link">Planos</a>
                 <a href="{{ url_for('ganhos') }}" class="nav-link">Financeiro</a>
+                <a href="{{ url_for('gerenciar_planos') }}" class="nav-link">Gerenciar Planos</a> </div>
             </div>
     </nav>
 

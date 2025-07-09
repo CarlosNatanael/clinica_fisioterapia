@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Finalizar Sessão{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Finalizar Sessão</h1>
+    <p>
+        <strong>Paciente:</strong> {{ paciente.nome }}<br>
+        <strong>Data da Sessão:</strong> {{ agendamento.data_hora | format_datetime }}
+    </p>
+    <hr>
+    <p>Preencha as anotações da sessão para concluí-la.</p>
+
+    <form method="post">
+        <input type="hidden" name="paciente_id" value="{{ paciente.id }}">
+        <input type="hidden" name="data_sessao" value="{{ agendamento.data_hora.split('T')[0] }}">
+
+        <div class="form-group">
+            <label for="anotacoes">Anotações da Sessão</label>
+            <textarea id="anotacoes" name="anotacoes" rows="5" required placeholder="Descreva a evolução, exercícios e observações da sessão..."></textarea>
+        </div>
+
+        {% if pendente > 0 %}
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="valor">Valor Pago nesta Sessão</label>
+                    <input type="number" step="0.01" id="valor" name="valor" placeholder="150.00">
+                </div>
+                <div class="form-group">
+                    <label for="status_pagamento">Status do Pagamento</label>
+                    <select id="status_pagamento" name="status_pagamento">
+                        <option value="Pendente">Pendente</option>
+                        <option value="Pago (Na Hora)">Pago (Na Hora)</option>
+                    </select>
+                </div>
+            </div>
+        {% else %}
+            <input type="hidden" name="status_pagamento" value="Pendente">
+        {% endif %}
+
+        <button type="submit">Concluir e Salvar Sessão</button>
+    </form>
+</div>
+{% endblock %}

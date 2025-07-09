@@ -6,10 +6,12 @@
 <div class="container-large">
     <h1>Pacientes Cadastrados</h1>
     <div class="search-bar">
-        <form method="get" action="{{ url_for('listar_pacientes') }}">
+        <form method="get" action="{{ url_for('listar_pacientes') }}" class="search-form">
             <input type="text" name="q" placeholder="Buscar paciente por nome..." value="{{ search_query or '' }}">
             <button type="submit">Buscar</button>
         </form>
+
+        <a href="{{ url_for('cadastrar_paciente') }}" class="btn-cadastro">Cadastrar Novo Paciente</a>
     </div>
     <div class="table-wrapper">
         <table>
@@ -18,17 +20,23 @@
                     <th>Nome</th>
                     <th>Email</th>
                     <th>Telefone</th>
-                    <th>Plano de Saúde</th>
+                    <th>Plano de Sessões</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
                 {% for paciente in pacientes %}
                 <tr>
-                    <td><a href="{{ url_for('ver_paciente', id=paciente['id']) }}">{{ paciente['nome'] }}</a></td>
+                    <td>
+                        <a href="{{ url_for('ver_paciente', id=paciente['id']) }}">{{ paciente['nome'] }}</a>
+                        
+                        {% if paciente.alerta_sessoes %}
+                            <span class="blinking-bell" title="Sessões do plano estão acabando!">🔴</span>
+                        {% endif %}
+                    </td>
                     <td>{{ paciente['email'] }}</td>
                     <td>{{ paciente['telefone'] }}</td>
-                    <td>{{ paciente['plano_saude'] or 'Não informado' }}</td>
+                    <td>{{ paciente['plano_nome'] or 'Avulso / Nenhum' }}</td> 
                     <td class="actions">
                         <a href="{{ url_for('editar_paciente', id=paciente['id']) }}" class="btn-action btn-edit">Editar</a>
                         <form action="{{ url_for('deletar_paciente', id=paciente['id']) }}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir este paciente?');">
@@ -43,9 +51,6 @@
                 {% endfor %}
             </tbody>
         </table>
-    </div>
-    <div class="actions-footer">
-        <a href="{{ url_for('cadastrar_paciente') }}" class="btn-voltar">Cadastrar Novo Paciente</a>
     </div>
 </div>
 {% endblock %}

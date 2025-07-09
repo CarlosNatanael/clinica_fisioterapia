@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Planos e Preços{% endblock %}
+
+{% block content %}
+<div class="container-large">
+    <h1>Planos e Preços</h1>
+    <p>Conheça nossas opções de tratamento e escolha a que melhor se adapta a você.</p>
+
+    <div class="dashboard-menu" style="align-items: stretch;">
+        {% for plano in planos %}
+        <div class="menu-card-static" style="width: 280px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <div class="card-icon">📄</div>
+                <h3 style="color: #844C4C;">{{ plano.nome }}</h3>
+                <h2 class="card-title" style="margin-bottom: 15px;">{{ plano.valor_total|brl }}</h2>
+                <p style="min-height: 40px;">{{ plano.descricao }}</p>
+            </div>
+            <div style="margin-top: 20px;">
+                <small>{{ plano.numero_sessoes }} {% if plano.numero_sessoes > 1 %}sessões{% else %}sessão{% endif %}</small>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+     <div class="actions-footer" style="text-align: center; margin-top: 40px;">
+        <a href="{{ url_for('cadastrar_paciente') }}" class="btn-action-dash">Cadastrar Novo Paciente</a>
+    </div>
+</div>
+{% endblock %}

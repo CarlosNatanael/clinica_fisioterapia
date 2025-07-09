@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Agendamento Recorrente de Sessões{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Agendamento Recorrente por Plano</h1>
+    <p>Selecione um paciente com plano ativo para agendar todas as sessões de uma vez, em dias e horários fixos.</p>
+    
+    <form action="{{ url_for('agendamento_recorrente') }}" method="post">
+        <div class="form-group">
+            <label for="paciente_id">Selecione o Paciente</label>
+            <select id="paciente_id" name="paciente_id" required>
+                <option value="" disabled selected>-- Escolha um paciente com plano --</option>
+                {% for paciente in pacientes %}
+                    <option value="{{ paciente.id }}" data-plano-nome="{{ paciente.plano_nome }}" data-plano-sessoes="{{ paciente.numero_sessoes }}">
+                        {{ paciente.nome }} (Plano: {{ paciente.plano_nome }})
+                    </option>
+                {% endfor %}
+            </select>
+            <small id="plano-info" style="display: none; margin-top: 8px; color: #5c3d3d;">Total de sessões a agendar: <strong id="sessoes-count"></strong></small>
+        </div>
+        
+        <div class="form-group">
+            <label>Selecione os Dias da Semana</label>
+            <div class="weekdays-selector">
+                <input type="checkbox" id="segunda" name="dias_semana" value="0"><label for="segunda">Seg</label>
+                <input type="checkbox" id="terca" name="dias_semana" value="1"><label for="terca">Ter</label>
+                <input type="checkbox" id="quarta" name="dias_semana" value="2"><label for="quarta">Qua</label>
+                <input type="checkbox" id="quinta" name="dias_semana" value="3"><label for="quinta">Qui</label>
+                <input type="checkbox" id="sexta" name="dias_semana" value="4"><label for="sexta">Sex</label>
+                <input type="checkbox" id="sabado" name="dias_semana" value="5"><label for="sabado">Sáb</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="hora_inicio">Horário das Sessões</label>
+            <input type="time" id="hora_inicio" name="hora_inicio" required>
+        </div>
+
+        <div class="form-group">
+            <label for="data_inicio">Data de Início para os Agendamentos</label>
+            <input type="date" id="data_inicio" name="data_inicio" required>
+        </div>
+        
+        <button type="submit">Agendar Todas as Sessões</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById('paciente_id').addEventListener('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const sessoes = selectedOption.getAttribute('data-plano-sessoes');
+        
+        if (sessoes) {
+            document.getElementById('plano-info').style.display = 'block';
+            document.getElementById('sessoes-count').textContent = sessoes;
+        } else {
+            document.getElementById('plano-info').style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}

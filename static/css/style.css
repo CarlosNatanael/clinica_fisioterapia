@@ -3,40 +3,230 @@ Paleta de Cores:
 Fundo: #F0ECE5 | Primária Escura: #844C4C | Primária Clara: #D1A79D | Texto: #5c3d3d
 */
 
-/* --- GERAL E FONTES --- */
+/* =================================== */
+/* 1. ESTILOS GERAIS E FONTES          */
+/* =================================== */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #F0ECE5;
     color: #5c3d3d;
     margin: 0;
-    padding: 10px;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
-/* ... (outros estilos gerais como h1, p, hr permanecem os mesmos) ... */
-h1, h2, h3 { color: #844C4C; text-align: center; }
-p { text-align: center; color: #5c3d3d; line-height: 1.6; }
-hr { border: 1px solid #e0d9d4; margin: 30px 0; }
 
-/* --- LAYOUT E CONTAINERS --- */
-.container, .container-large { background-color: #ffffff; padding: 30px 40px; border-radius: 12px; box-shadow: 0 6px 25px rgba(0, 0, 0, 0.07); width: 100%; box-sizing: border-box; }
-.container { max-width: 600px; }
-.container-large { max-width: 1100px; }
-main.main-content { flex-grow: 1; display: flex; justify-content: center; align-items: center; padding: 120px 10px 80px 10px; box-sizing: border-box; }
+h1, h2, h3 {
+    color: #844C4C;
+    text-align: center;
+}
 
-/* --- NAVBAR --- */
-.navbar { width: 100%; background-color: #D1A79D; padding: 10px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: fixed; top: 0; left: 0; z-index: 1000; }
-.navbar-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
-.logo-img { height: 50px; width: auto; }
-.nav-links { display: flex; gap: 25px; }
-.nav-link { color: #ffffff; text-decoration: none; font-weight: 500; padding: 8px 12px; border-radius: 8px; transition: background-color 0.3s; }
-.nav-link:hover { background-color: rgba(255, 255, 255, 0.2); }
+p {
+    text-align: center;
+    color: #5c3d3d;
+    line-height: 1.6;
+}
 
-/* --- BOTÕES E FORMULÁRIOS (sem alterações) --- */
-button, .btn-action-dash { background-color: #844C4C; border: none; border-radius: 8px; color: white; font-size: 1rem; font-weight: 600; cursor: pointer; padding: 12px 20px; transition: background-color 0.3s, transform 0.2s; }
-button:hover, .btn-action-dash:hover { background-color: #6a3d3d; transform: translateY(-2px); }
-/* ... (outros estilos de botões e formulários) ... */
+hr {
+    border: 1px solid #e0d9d4;
+    margin: 30px 0;
+}
+
+a {
+    color: #844C4C; /* Cor padrão para links */
+    text-decoration: none;
+}
+
+/* =================================== */
+/* 2. LAYOUT E CONTAINERS              */
+/* =================================== */
+.container, .container-large {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.07);
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.container {
+    max-width: 600px;
+}
+
+.container-large {
+    max-width: 1100px;
+}
+
+main.main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinhado ao topo para páginas grandes */
+    padding: 120px 20px 80px 20px;
+    box-sizing: border-box;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+}
+
+/* =================================== */
+/* 3. COMPONENTES                      */
+/* =================================== */
+
+/* --- 3.1. Navbar --- */
+.navbar {
+    width: 100%;
+    background-color: #D1A79D;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-img {
+    height: 50px;
+    width: auto;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* --- 3.2. Cards (Dashboard e Detalhes) --- */
+.dashboard-menu {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.menu-card-static, .menu-card-dynamic {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    width: 260px;
+    text-align: center;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.07);
+    border: 1px solid #F0ECE5;
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #D1A79D;
+}
+
+.card-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #844C4C;
+}
+
+.card-description {
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.card-link, .footer-link {
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 15px;
+    transition: transform 0.2s;
+}
+
+.card-link:hover, .footer-link:hover {
+    transform: translateY(-2px);
+    text-decoration: underline;
+}
+
+.menu-card-static.status-pendente {
+    background-color: #fdf5f2;
+    border-left: 5px solid #d1a79d;
+}
+
+/* --- 3.3. Formulários e Botões --- */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #844C4C;
+}
+
+input[type="text"], input[type="email"], input[type="tel"], input[type="date"], input[type="datetime-local"], input[type="number"], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dcd6d1;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    background-color: #fdfcfb;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #D1A79D;
+    box-shadow: 0 0 8px rgba(209, 167, 157, 0.4);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+button, .btn-action-dash {
+    background-color: #844C4C;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 12px 20px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover, .btn-action-dash:hover {
+    background-color: #6a3d3d;
+    transform: translateY(-2px);
+}
+
 .btn-action { padding: 6px 12px; font-size: 0.9rem; }
 .btn-edit { background-color: #c59285; }
 .btn-edit:hover { background-color: #b17d70; }
@@ -44,157 +234,62 @@ button:hover, .btn-action-dash:hover { background-color: #6a3d3d; transform: tra
 .btn-delete:hover { background-color: #8f5a5a; }
 .btn-update { background-color: #844C4C; }
 .btn-update:hover { background-color: #6a3d3d; }
-.form-group { margin-bottom: 20px; }
-label { display: block; margin-bottom: 8px; font-weight: 600; color: #844C4C; }
-input[type="text"], input[type="email"], input[type="tel"], input[type="date"], input[type="datetime-local"], input[type="number"], select, textarea { width: 100%; padding: 12px; border: 1px solid #dcd6d1; border-radius: 8px; box-sizing: border-box; font-family: 'Poppins', sans-serif; font-size: 1rem; background-color: #fdfcfb; transition: border-color 0.3s, box-shadow 0.3s; }
-input:focus, select:focus, textarea:focus { outline: none; border-color: #D1A79D; box-shadow: 0 0 8px rgba(209, 167, 157, 0.4); }
-.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
 
+/* --- 3.4. Tabelas --- */
+.table-wrapper {
+    overflow-x: auto;
+    width: 100%;
+}
 
-/* --- DASHBOARD, TABELAS, CALENDÁRIO, STATUS (sem alterações) --- */
-/* ... (todos os outros estilos que já tínhamos) ... */
-.dashboard-menu { display: flex; justify-content: center; gap: 20px; margin-top: 30px; flex-wrap: wrap; }
-.menu-card-static, .menu-card-dynamic { background-color: #fff; border-radius: 12px; padding: 20px; width: 260px; text-align: center; box-shadow: 0 6px 25px rgba(0, 0, 0, 0.07); border: 1px solid #F0ECE5; }
-.card-icon { font-size: 2.5rem; margin-bottom: 10px; color: #D1A79D; }
-.card-title { font-size: 2rem; font-weight: 600; color: #844C4C; }
-.card-description { font-size: 0.9rem; margin-top: 5px; }
-.table-wrapper { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #F0ECE5; }
-thead th { background-color: #fdfcfb; font-weight: 600; color: #844C4C; }
-#calendar { margin-top: 30px; }
-.fc .fc-button-primary { background-color: #844C4C; border-color: #844C4C; }
-.fc .fc-button-primary:hover { background-color: #6a3d3d; border-color: #6a3d3d; }
-.fc-event-title { font-weight: 500; }
-.status-badge { padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; color: white; }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #F0ECE5;
+}
+
+thead th {
+    background-color: #fdfcfb;
+    font-weight: 600;
+    color: #844C4C;
+}
+
+td.actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- 3.5. Badges (Status e Pagamento) --- */
+.status-badge, .payment-status {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: white;
+    text-transform: capitalize;
+}
+
 .status-badge.status-marcado { background-color: #D1A79D; }
 .status-badge.status-realizado { background-color: #844C4C; }
 .status-badge.status-cancelado { background-color: #a36d6d; }
-.payment-status { padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; color: white; }
-.payment-status.status-pago-na-hora, .payment-status.status-pago-adiantado { background-color: #844C4C; }
+
+.payment-status.status-pago-na-hora, .payment-status.status-pago-adiantado, .payment-status.status-pago-\(na-hora\), .payment-status.status-pago-\(adiantado\) { background-color: #844C4C; }
 .payment-status.status-pendente { background-color: #d1a79d; }
-.menu-card-static.status-pendente { background-color: #fdf5f2; border-left: 5px solid #d1a79d; }
 
+/* =================================== */
+/* 5. RESPONSIVIDADE E MENU MOBILE     */
+/* =================================== */
 
-/* --- NOVOS ESTILOS PARA MENU HAMBÚRGUER E RESPONSIVIDADE --- */
-
-.hamburger-btn {
-    display: none; /* Escondido por padrão em telas grandes */
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 1100; /* Fica acima de outros elementos */
-}
-.hamburger-line {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: white;
-    margin: 5px 0;
-    transition: all 0.3s ease-in-out;
-}
-
+/* --- 5.1. Overlay --- */
 .overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 998;
-}
-.overlay.active {
     display: block;
-}
-
-/* --- Media Query para Telas Pequenas --- */
-@media (max-width: 800px) {
-    /* Mostra o botão hambúrguer */
-    .hamburger-btn {
-        display: block;
-    }
-
-    .sidenav-header {
-        display: block;
-        width: 100%;
-        padding: 10px 20px;
-        background-color: #D1A79D;
-        box-sizing: border-box;
-    }
-
-    /* Transforma a lista de links em um menu lateral */
-    .nav-links {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 250px;
-        height: 100%;
-        background-color: #D1A79D;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 60px 20px 20px 20px;
-        gap: 15px;
-        transform: translateX(-100%);
-        transition: transform 0.3s ease-in-out;
-        z-index: 999;
-    }
-
-    /* Classe 'active' que o JavaScript adiciona para mostrar o menu */
-    .nav-links.active {
-        transform: translateX(0);
-    }
-    
-    .nav-link {
-        width: 100%;
-    }
-
-    /* --- Outros ajustes responsivos que já tínhamos --- */
-    main.main-content { padding-top: 100px; }
-    table thead { display: none; }
-    table tr { display: block; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-    table td { display: block; text-align: right; padding: 10px 15px; border-bottom: 1px solid #eee; position: relative; }
-    table td:last-child { border-bottom: none; }
-    table td::before { content: attr(data-label); position: absolute; left: 15px; font-weight: 600; color: #844C4C; text-align: left; }
-    table td.actions { display: flex; justify-content: flex-end; align-items: center; gap: 10px; }
-}
-
-/* --- ESTILOS PARA MENU HAMBÚRGUER E RESPONSIVIDADE (VERSÃO MELHORADA) --- */
-
-.hamburger-btn {
-    display: none; /* Escondido por padrão em telas grandes */
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 1101; /* Fica acima de tudo */
-    position: relative; /* Necessário para o posicionamento das linhas */
-    width: 45px;
-    height: 45px;
-}
-.hamburger-line {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: white;
-    margin: 5px auto; /* Centraliza as linhas */
-    transition: all 0.3s ease-in-out;
-}
-
-/* Animação do ícone para "X" quando o menu está ativo */
-.hamburger-btn.active .hamburger-line:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
-}
-.hamburger-btn.active .hamburger-line:nth-child(2) {
-    opacity: 0;
-}
-.hamburger-btn.active .hamburger-line:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-}
-
-.overlay {
-    display: block; /* Sempre existe no DOM para a transição funcionar */
     position: fixed;
     top: 0;
     left: 0;
@@ -206,12 +301,40 @@ thead th { background-color: #fdfcfb; font-weight: 600; color: #844C4C; }
     visibility: hidden;
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
+
 .overlay.active {
     opacity: 1;
     visibility: visible;
 }
 
-/* --- Media Query para Telas Pequenas --- */
+/* --- 5.2. Botão Hambúrguer --- */
+.hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1101;
+    position: relative;
+    width: 45px;
+    height: 45px;
+}
+
+.hamburger-line {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 5px auto;
+    transition: all 0.3s ease-in-out;
+}
+
+.hamburger-btn.active .hamburger-line:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.hamburger-btn.active .hamburger-line:nth-child(2) { opacity: 0; }
+.hamburger-btn.active .hamburger-line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+
+/* --- 5.3. Media Query para Telas Pequenas (max-width: 800px) --- */
 @media (max-width: 800px) {
     /* Mostra o botão hambúrguer */
     .hamburger-btn {
@@ -223,41 +346,33 @@ thead th { background-color: #fdfcfb; font-weight: 600; color: #844C4C; }
         position: fixed;
         top: 0;
         left: 0;
-        width: 280px; /* Um pouco mais largo */
+        width: 280px;
         height: 100%;
-        background-color: #F0ECE5; /* Fundo claro para o menu */
+        background-color: #F0ECE5;
         flex-direction: column;
         align-items: flex-start;
-        padding: 0; /* Remove padding para o header ocupar tudo */
-        gap: 0; /* Remove gap para os links ficarem juntos */
+        padding: 0;
+        gap: 0;
         transform: translateX(-100%);
-        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1); /* Transição mais suave */
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         z-index: 1100;
         box-shadow: 5px 0px 15px rgba(0,0,0,0.1);
     }
 
-    /* Classe 'active' que o JavaScript adiciona para mostrar o menu */
+    /* Animação de abertura do menu */
     .nav-links.active {
         transform: translateX(0);
     }
     
-    .sidenav-header {
-        display: none;
-        width: 100%;
-        padding: 10px 20px;
-        background-color: #D1A79D;
-        box-sizing: border-box;
-    }
-
     .nav-link {
         width: 100%;
         padding: 20px;
-        color: #844C4C; /* Cor escura para o texto do link */
+        color: #844C4C; /* Cor escura para o texto do link no menu mobile */
         font-weight: 600;
         border-radius: 0;
         box-sizing: border-box;
         border-bottom: 1px solid #e0d9d4;
-        opacity: 0; /* Começa invisível para a animação */
+        opacity: 0;
         transform: translateY(10px);
         transition: background-color 0.3s, opacity 0.5s ease, transform 0.5s ease;
     }
@@ -270,19 +385,244 @@ thead th { background-color: #fdfcfb; font-weight: 600; color: #844C4C; }
         opacity: 1;
         transform: translateY(0);
     }
-    /* Adiciona um pequeno atraso para cada link, criando um efeito cascata */
+    /* Efeito cascata na animação dos links */
     .nav-links.active .nav-link:nth-child(2) { transition-delay: 0.1s; }
     .nav-links.active .nav-link:nth-child(3) { transition-delay: 0.2s; }
     .nav-links.active .nav-link:nth-child(4) { transition-delay: 0.3s; }
     .nav-links.active .nav-link:nth-child(5) { transition-delay: 0.4s; }
 
 
-    /* --- Outros ajustes responsivos que já tínhamos --- */
-    main.main-content { padding-top: 100px; }
-    table thead { display: none; }
-    table tr { display: block; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-    table td { display: block; text-align: right; padding: 10px 15px; border-bottom: 1px solid #eee; position: relative; }
-    table td:last-child { border-bottom: none; }
-    table td::before { content: attr(data-label); position: absolute; left: 15px; font-weight: 600; color: #844C4C; text-align: left; }
-    table td.actions { display: flex; justify-content: flex-end; align-items: center; gap: 10px; }
+    /* --- Ajustes responsivos gerais --- */
+    main.main-content {
+        padding-top: 100px;
+    }
+
+    /* Transforma a tabela em lista de cards */
+    table thead {
+        display: none;
+    }
+    table tr {
+        display: block;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        padding: 10px;
+    }
+    table td {
+        display: block;
+        text-align: right;
+        padding: 10px 15px;
+        border-bottom: 1px solid #eee;
+        position: relative;
+    }
+    table td:last-child {
+        border-bottom: none;
+    }
+    table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        font-weight: 600;
+        color: #844C4C;
+        text-align: left;
+    }
+    td.actions {
+        justify-content: flex-end;
+    }
+}
+
+/* =================================== */
+/* 7. ESTILOS DE ALERTA (SINO)         */
+/* =================================== */
+
+.blinking-bell {
+    font-size: 1rem;
+    margin-left: 8px;
+    color: #e53935; /* Cor vermelha para o sino */
+    animation: blink 1.5s infinite;
+    cursor: help; /* Mostra um ícone de ajuda ao passar o mouse */
+}
+
+/* Animação que cria o efeito de piscar */
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.2; }
+    100% { opacity: 1; }
+}
+
+/* =================================== */
+/* 8. ESTILOS DOS CARDS DE SESSÃO      */
+/* =================================== */
+
+.session-list {
+    margin-top: 30px;
+    display: grid;
+    gap: 15px;
+}
+
+.session-card {
+    background-color: #fdfcfb;
+    border: 1px solid #e0d9d4;
+    border-radius: 8px;
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.session-card:hover {
+    background-color: #f7f3f0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.session-header, .session-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.session-header {
+    margin-bottom: 10px;
+    color: #844C4C;
+}
+
+.session-header small {
+    font-size: 0.8rem;
+    color: #a38d8d;
+}
+
+/* Estilo para o seletor de dias da semana */
+.weekdays-selector {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.weekdays-selector input[type="checkbox"] {
+    width: auto;
+}
+.weekdays-selector label {
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+/* =================================== */
+/* 9. ESTILOS DA LISTA DE AGENDAMENTOS   */
+/* =================================== */
+
+.upcoming-appointments {
+    margin-top: 30px;
+}
+
+.appointment-list {
+    display: grid;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.appointment-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fdfcfb;
+    border: 1px solid #e0d9d4;
+    border-radius: 8px;
+    padding: 12px 20px;
+}
+
+.appointment-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.1rem;
+    color: #5c3d3d;
+}
+
+.appointment-icon {
+    font-size: 1.5rem;
+}
+
+/* =================================== */
+/* 10. AJUSTES DA BARRA DE BUSCA       */
+/* =================================== */
+
+.search-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px; /* Espaço entre a busca e o botão de cadastro */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    flex-wrap: wrap; /* Permite que os itens quebrem a linha em telas pequenas */
+}
+
+.search-form {
+    display: flex;
+    flex-grow: 1; /* Faz o formulário de busca ocupar o espaço disponível */
+    gap: 10px;
+}
+
+.search-form input {
+    flex-grow: 1; /* Faz o campo de texto crescer */
+}
+
+/* Estilo para o link de cadastro se parecer com os outros botões */
+.btn-cadastro {
+    background-color: #844C4C;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    white-space: nowrap; /* Evita que o texto quebre em duas linhas */
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-cadastro:hover {
+    background-color: #6a3d3d;
+    transform: translateY(-2px);
+    color: white;
+}
+
+/* =================================== */
+/* 11. ESTILOS DO FORM DE PAGAMENTO AVULSO */
+/* =================================== */
+
+.payment-form-container {
+    background-color: #fdfcfb;
+    border: 1px solid #e0d9d4;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.payment-form-container h3 {
+    text-align: left;
+    margin-top: 0;
+}
+
+.payment-form {
+    display: flex;
+    align-items: flex-end;
+    gap: 15px;
+}
+
+.payment-form .form-group {
+    flex-grow: 1; /* Faz o campo de valor ocupar o espaço disponível */
+    margin-bottom: 0;
+}
+
+.payment-form label {
+    text-align: left;
+}
+
+.session-card-static {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fdfcfb;
+    border: 1px solid #e0d9d4;
+    border-radius: 8px;
+    padding: 15px;
+    color: #5c3d3d;
 }

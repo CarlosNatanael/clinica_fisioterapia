@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Gerenciar Planos{% endblock %}
+
+{% block content %}
+<div class="container-large">
+    <h1>Gerenciar Planos da Clínica</h1>
+    <p>Adicione, edite ou remova os planos de tratamento oferecidos.</p>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome do Plano</th>
+                    <th>Nº de Sessões</th>
+                    <th>Valor Total</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for plano in planos %}
+                <tr>
+                    <td>{{ plano.nome }}</td>
+                    <td>{{ plano.numero_sessoes }}</td>
+                    <td>{{ plano.valor_total|brl }}</td>
+                    <td>{{ plano.descricao or 'N/A' }}</td>
+                    <td class="actions">
+                        <a href="{{ url_for('editar_plano', id=plano.id) }}" class="btn-action btn-edit">Editar</a>
+                        <form action="{{ url_for('deletar_plano', id=plano.id) }}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir este plano?');" style="display: inline;">
+                            <button type="submit" class="btn-action btn-delete">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center;">Nenhum plano cadastrado ainda.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="actions-footer">
+        <a href="{{ url_for('adicionar_plano') }}" class="btn-voltar">Adicionar Novo Plano</a>
+    </div>
+</div>
+{% endblock %}
