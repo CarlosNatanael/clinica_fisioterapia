@@ -36,7 +36,7 @@
             <tbody>
                 {% for item in historico %}
                 <tr>
-                    <td>{{ item.data | format_datetime }}</td>
+                    <td>{{ item.data | format_date }}</td>
                     <td>{{ item.paciente_nome }}</td>
                     <td>{{ item.tipo }}</td>
                     <td>{{ item.valor | brl }}</td>

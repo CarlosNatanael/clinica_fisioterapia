@@ -49,9 +49,9 @@
         <h2>Histórico de Sessões Realizadas</h2>
         <div class="session-list">
             {% for sessao in sessoes %}
-            <div class="session-card" onclick="mostrarAnotacoes(this)" data-data-sessao="{{ sessao.data_sessao | format_datetime }}" data-anotacoes="{{ sessao.anotacoes }}">
+            <div class="session-card" onclick="mostrarAnotacoes(this)" data-data-sessao="{{ sessao.data_sessao | format_date }}" data-anotacoes="{{ sessao.anotacoes }}">
                 <div class="session-header">
-                    <strong>Sessão de {{ sessao.data_sessao | format_datetime }}</strong>
+                    <strong>Sessão de {{ sessao.data_sessao | format_date }}</strong>
                     <small>Clique para ver as anotações</small>
                 </div>
                 <div class="session-footer">
@@ -74,7 +74,7 @@
         <div class="session-list">
             {% for pagamento in historico_pagamentos %}
             <div class="session-card-static">
-                <span>🗓️ {{ pagamento.data_pagamento | format_datetime }}</span>
+                <span>🗓️ {{ pagamento.data_pagamento | format_date }}</span>
                 <strong>{{ pagamento.valor | brl }}</strong>
                 <span>{{ pagamento.anotacoes }}</span>
             </div>

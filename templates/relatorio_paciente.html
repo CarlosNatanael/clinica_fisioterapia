@@ -37,7 +37,7 @@
             <tbody>
                 {% for sessao in sessoes %}
                 <tr>
-                    <td>{{ sessao['data_sessao'] }}</td>
+                    <td>{{ sessao.data_sessao | format_date }}</td>
                     <td>{{ sessao['anotacoes'] }}</td>
                     <td>
                         {% if sessao.status_pagamento != 'Pendente' %}
