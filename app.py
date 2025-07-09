@@ -4,13 +4,23 @@ import sqlite3
 import sys
 import os
 
-# --- Bloco de código para resolver os caminhos para o PyInstaller ---
-if getattr(sys, 'frozen', False):
-    template_folder = os.path.join(sys._MEIPASS, 'templates')
-    static_folder = os.path.join(sys._MEIPASS, 'static')
-    app = Flask(__name__, template_folder=template_folder, static_folder=static_folder)
-else:
-    app = Flask(__name__)
+# --- Bloco de código CORRIGIDO para resolver os caminhos ---
+# Esta função garante que os caminhos funcionem tanto em desenvolvimento quanto no .exe
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller cria uma pasta temp e armazena o caminho em _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+# Aponta para as pastas corretas, usando a função que criamos
+template_folder = resource_path('templates')
+static_folder = resource_path('static')
+
+app = Flask(__name__, template_folder=template_folder, static_folder=static_folder)
 
 # --- Context Processor para injetar o ano atual em todos os templates ---
 @app.context_processor
@@ -51,6 +61,19 @@ def format_datetime_filter(value):
             # Formata para o padrão brasileiro
             return dt_obj.strftime('%d/%m/%Y às %H:%M')
         except ValueError:
+            return value
+    return ''
+
+# --- Filtro customizado para formatar data (DD/MM/YYYY) ---
+@app.template_filter('format_date')
+def format_date_filter(value):
+    if value:
+        try:
+            # Converte a string de data (YYYY-MM-DD) para um objeto de data
+            date_obj = datetime.strptime(value, '%Y-%m-%d').date()
+            # Formata para o padrão brasileiro
+            return date_obj.strftime('%d/%m/%Y')
+        except (ValueError, TypeError):
             return value
     return ''
 
@@ -289,7 +312,6 @@ def deletar_sessao(id):
 def ganhos():
     db = get_db()
     
-    # --- LÓGICA FINANCEIRA ---
     ganho_sessoes = db.execute("SELECT SUM(valor) FROM sessoes WHERE status_pagamento LIKE 'Pago%'").fetchone()[0] or 0.0
     ganho_avulsos = db.execute("SELECT SUM(valor) FROM pagamentos").fetchone()[0] or 0.0
     ganho_total = ganho_sessoes + ganho_avulsos
@@ -312,10 +334,13 @@ def ganhos():
         SELECT pg.data_pagamento as data, p.nome as paciente_nome, pg.valor, pg.anotacoes as tipo
         FROM pagamentos pg JOIN pacientes p ON pg.paciente_id = p.id
     """).fetchall()
-
+    
     historico_pagamentos = [dict(p) for p in pagamentos_sessoes] + [dict(p) for p in pagamentos_avulsos_hist]
     
-    historico_pagamentos.sort(key=lambda x: x['data'], reverse=True)
+    try:
+        historico_pagamentos.sort(key=lambda x: datetime.strptime(x['data'], '%Y-%m-%d'), reverse=True)
+    except (ValueError, TypeError):
+        pass
 
     return render_template('ganhos.html', 
                            ganho_total=ganho_total, 

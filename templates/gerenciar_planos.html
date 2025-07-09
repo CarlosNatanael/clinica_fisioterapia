@@ -6,7 +6,7 @@
 <div class="container-large">
     <h1>Gerenciar Planos da Clínica</h1>
     <p>Adicione, edite ou remova os planos de tratamento oferecidos.</p>
-
+    <hr>
     <div class="table-wrapper">
         <table>
             <thead>
@@ -40,8 +40,9 @@
             </tbody>
         </table>
     </div>
-    <div class="actions-footer">
-        <a href="{{ url_for('adicionar_plano') }}" class="btn-voltar">Adicionar Novo Plano</a>
+    <hr>
+    <div class="page-actions">
+        <a href="{{ url_for('adicionar_plano') }}" class="btn-action-dash">Adicionar Novo Plano</a>
     </div>
 </div>
 {% endblock %}
