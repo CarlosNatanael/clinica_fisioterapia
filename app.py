@@ -206,11 +206,11 @@ def api_agendamentos():
         evento_dict = dict(evento)
         evento_dict['url'] = url_for('ver_paciente', id=evento['paciente_id'])
         if evento['status'] == 'Realizado':
-            evento_dict['color'] = '#844C4C' 
+            evento_dict['color'] = "#10D020" 
         elif evento['status'] == 'Cancelado':
-            evento_dict['color'] = '#a36d6d'
+            evento_dict['color'] = "#e90909"
         else: # Marcado
-            evento_dict['color'] = '#D1A79D'
+            evento_dict['color'] = "#D8C7C3"
         eventos_formatados.append(evento_dict)
     return jsonify(eventos_formatados)
 
