@@ -53,8 +53,8 @@ Este é um sistema de gestão completo para clínicas de fisioterapia, desenvolv
 
 1. Clone o repositório:
      ```bash
-     git clone <url-do-repositorio>
-     cd <pasta-do-repositorio>
+     git clone https://github.com/CarlosNatanael/clinica_fisioterapia
+     cd clinica_fisioterapia
      ```
 2. Instale as dependências:
      ```bash
