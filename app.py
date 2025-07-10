@@ -5,7 +5,6 @@ import sys
 import os
 
 # --- Bloco de código CORRIGIDO para resolver os caminhos ---
-# Esta função garante que os caminhos funcionem tanto em desenvolvimento quanto no .exe
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -31,6 +30,21 @@ def inject_year():
 DATABASE = 'clinica.db'
 
 # --- Configuração do Banco de Dados ---
+
+def init_db():
+    db = get_db()
+    # Executa o script de criação de tabelas
+    with app.open_resource('init_db.py', mode='r') as f:
+        db.cursor().executescript(f.read())
+    db.commit()
+
+# Esta função será chamada para inicializar o DB
+@app.cli.command('init-db')
+def init_db_command():
+    """Limpa os dados existentes e cria novas tabelas."""
+    init_db()
+    print('Banco de dados inicializado.')
+
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
