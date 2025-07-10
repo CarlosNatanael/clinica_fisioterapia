@@ -535,3 +535,6 @@ def deletar_plano(id):
 @app.route('/suporte')
 def suporte():
     return render_template('suporte.html')
+
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=5000)
